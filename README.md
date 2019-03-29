@@ -22,7 +22,7 @@ If you build a [rpi_wordclock](https://github.com/bk1285/rpi_wordclock), you can
  * Now you're ready to add a rpi_wordclock with its specific IP address to your configuration.yaml
 
     ```
-    light:                                                                                                                                                               
+    light:
     - platform: rpi_wordclock
       host: 192.168.YOUR.IP
       name: "Wordclock"
