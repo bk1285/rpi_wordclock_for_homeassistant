@@ -1,7 +1,7 @@
 # rpi_wordclock_for_homeassistant
 Makes a rpi_wordclock available to homeassistant as light 
 
-If you build a rpi_wordclock like this one, you can make use of this repository to integrate it to your homeassistant framework as follows:
+If you build a [rpi_wordclock](https://github.com/bk1285/rpi_wordclock), you can make use of this repository to integrate it to your homeassistant framework as follows:
 
 * Go to the config-directory of your homeassistant instance:
   
