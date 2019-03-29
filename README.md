@@ -19,12 +19,12 @@ If you build a [rpi_wordclock](https://github.com/bk1285/rpi_wordclock), you can
    wget https://raw.githubusercontent.com/bk1285/rpi_wordclock_for_homeassistant/master/rpi_wordclock.py
    ```
    
- * Now you're ready to add a rpi_wordclock to your configuration.yaml
+ * Now you're ready to add a rpi_wordclock with its specific IP address to your configuration.yaml
 
     ```
     light:                                                                                                                                                               
     - platform: rpi_wordclock
-      host: 192.168.1.101
+      host: 192.168.YOUR.IP
       name: "Wordclock"
     ```
 
