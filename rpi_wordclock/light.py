@@ -1,3 +1,5 @@
+DOMAIN = "rpi_wordclock"
+
 import logging
 import voluptuous as vol
 import requests
@@ -20,7 +22,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 
     # Assign configuration variables. The configuration check takes care they are present.
     host = config.get(CONF_HOST)
-    name = config.get(CONF_NAME)
+    name = "Wordclock"
 
     # Setup connection with devices/cloud
     api_endpoint = 'http://' + host + '/api'
