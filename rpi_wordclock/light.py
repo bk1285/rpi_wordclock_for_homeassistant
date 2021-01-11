@@ -4,16 +4,16 @@ import logging
 import voluptuous as vol
 import requests
 
-from homeassistant.components.light import ATTR_BRIGHTNESS, ATTR_COLOR_TEMP, Light, PLATFORM_SCHEMA, SUPPORT_BRIGHTNESS, SUPPORT_COLOR_TEMP
-from homeassistant.const import CONF_HOST, CONF_NAME
+from homeassistant.components.light import ATTR_BRIGHTNESS, ATTR_COLOR_TEMP, ATTR_HS_COLOR, LightEntity, PLATFORM_SCHEMA, SUPPORT_BRIGHTNESS, SUPPORT_COLOR_TEMP, SUPPORT_COLOR
+from homeassistant.const import CONF_HOST
 import homeassistant.helpers.config_validation as cv
+from homeassistant.util.color import color_hs_to_RGB
 
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_HOST): cv.string,
 })
-
 
 def setup_platform(hass, config, add_devices, discovery_info=None):
     """
@@ -31,8 +31,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     add_devices([RpiWordclock(name, api_endpoint)])
     _LOGGER.info("Added rpi_wordclock light at " + host)
 
-
-class RpiWordclock(Light):
+class RpiWordclock(LightEntity):
     """
     Representation of an raspberry pi wordclock Light.
     """
@@ -70,7 +69,7 @@ class RpiWordclock(Light):
         """
         Flag supported features.
         """
-        return SUPPORT_BRIGHTNESS | SUPPORT_COLOR_TEMP
+        return SUPPORT_BRIGHTNESS | SUPPORT_COLOR_TEMP | SUPPORT_COLOR
 
     @property
     def is_on(self):
@@ -90,14 +89,13 @@ class RpiWordclock(Light):
             r = requests.post(self._api_endpoint + '/brightness' , json={"brightness": kwargs[ATTR_BRIGHTNESS]})
             self.log(r)
 
-        else:
-            r = requests.post(self._api_endpoint + '/brightness' , json={"brightness": 250})
-            self.log(r)
-
         if ATTR_COLOR_TEMP in kwargs:
-            _LOGGER.info("Temp: " + str(kwargs[ATTR_COLOR_TEMP]))
             kelvin = int(1000000.0/kwargs[ATTR_COLOR_TEMP])
             r = requests.post(self._api_endpoint + '/color_temperature' , json={"color_temperature": kelvin})
+            self.log(r)
+        if ATTR_HS_COLOR in kwargs:
+            rgb = color_hs_to_RGB(kwargs[ATTR_HS_COLOR][0], kwargs[ATTR_HS_COLOR][1])
+            r = requests.post(self._api_endpoint + '/color' , json={"red": rgb[0], "green": rgb[1], "blue": rgb[2], "type": "all"})
             self.log(r)
 
     def turn_off(self, **kwargs):
