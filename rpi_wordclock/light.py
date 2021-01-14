@@ -44,7 +44,7 @@ class RpiWordclock(LightEntity):
         self._name = name
         self._state = None
         self._brightness = None
-        self._off_brightness = 15
+        self._off_brightness = 10
         self._api_endpoint = api_endpoint
 
     @property
@@ -81,14 +81,10 @@ class RpiWordclock(LightEntity):
     def turn_on(self, **kwargs):
         """
         Instruct the light to turn on.
-
-        You can skip the brightness part if your light does not support
-        brightness control.
         """
         if ATTR_BRIGHTNESS in kwargs:
             r = requests.post(self._api_endpoint + '/brightness' , json={"brightness": kwargs[ATTR_BRIGHTNESS]})
             self.log(r)
-
         if ATTR_COLOR_TEMP in kwargs:
             kelvin = int(1000000.0/kwargs[ATTR_COLOR_TEMP])
             r = requests.post(self._api_endpoint + '/color_temperature' , json={"color_temperature": kelvin})
@@ -97,6 +93,8 @@ class RpiWordclock(LightEntity):
             rgb = color_hs_to_RGB(kwargs[ATTR_HS_COLOR][0], kwargs[ATTR_HS_COLOR][1])
             r = requests.post(self._api_endpoint + '/color' , json={"red": rgb[0], "green": rgb[1], "blue": rgb[2], "type": "all"})
             self.log(r)
+        if ATTR_BRIGHTNESS not in kwargs and ATTR_COLOR_TEMP not in kwargs and ATTR_HS_COLOR not in kwargs:
+            r = requests.post(self._api_endpoint + '/brightness' , json={"brightness": 250})
 
     def turn_off(self, **kwargs):
         """
