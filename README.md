@@ -20,4 +20,8 @@ If you build a [rpi_wordclock](https://github.com/bk1285/rpi_wordclock), you can
       host: 192.168.YOUR.IP
     ```
 
- * Finish by restarting homeassistant.
+ * Restart homeassistant
+
+ * Integration works?
+    * No: Report an issue
+    * Yes: Consider starring this repository ;)
