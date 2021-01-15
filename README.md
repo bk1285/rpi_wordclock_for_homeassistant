@@ -23,5 +23,5 @@ If you build a [rpi_wordclock](https://github.com/bk1285/rpi_wordclock), you can
  * Restart homeassistant
 
  * Integration works?
-    * No: Report an issue
+    * No: Report an issue [here](https://github.com/bk1285/rpi_wordclock_for_homeassistant/issues).
     * Yes: Consider starring this repository ;)
