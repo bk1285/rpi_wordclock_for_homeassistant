@@ -4,6 +4,6 @@
     "documentation": "https://github.com/bk1285/rpi_wordclock_for_homeassistant",
     "dependencies": [],
     "codeowners": ["Bernd Krolla"],
-    "requirements": []
+    "requirements": [],
+    "version": "0.1.0"
   }
-  
