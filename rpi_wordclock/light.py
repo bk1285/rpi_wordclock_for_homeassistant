@@ -44,7 +44,7 @@ class RpiWordclock(LightEntity):
         self._name = name
         self._state = None
         self._brightness = None
-        self._off_brightness = 10
+        self._off_brightness = 0
         self._api_endpoint = api_endpoint
 
     @property
